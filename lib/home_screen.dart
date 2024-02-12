@@ -29,6 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
         Image.asset(
           "assets/images/main_background.png",
           width: double.infinity,
+          height: double.infinity,
           fit: BoxFit.fill,
         ),
         Scaffold(
