@@ -34,6 +34,11 @@ class MyAppTheme {
         fontWeight: FontWeight.w600,
         color: blackColor, // sura content
       ),
+      titleSmall: TextStyle(
+        fontSize: 25,
+        fontWeight: FontWeight.w500,
+        color: blackColor, // hadeth name
+      ),
     ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       backgroundColor: primaryLightColor,
