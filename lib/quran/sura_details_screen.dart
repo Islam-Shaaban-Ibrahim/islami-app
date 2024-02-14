@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:islami_app/app_theming.dart';
@@ -51,7 +49,7 @@ class _SuraDetailsScreenState extends State<SuraDetailsScreen> {
                 borderRadius: BorderRadius.circular(25),
                 color: MyAppTheme.white),
             child: verses.isEmpty
-                ? CircularProgress()
+                ? LoadingIndicator()
                 : ListView.separated(
                     separatorBuilder: (context, index) => SizedBox(
                       height: 10,
