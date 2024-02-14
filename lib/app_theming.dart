@@ -4,6 +4,7 @@ class MyAppTheme {
   static Color primaryLightColor = Color(0xffB7935F);
   static Color blackColor = Color(0xff242424);
   static Color white = Color(0xFFF8F8F8);
+  static Color sebhaCounterColor = Color(0xffC8B396);
   static ThemeData lightMode = ThemeData(
     primaryColor: primaryLightColor,
     scaffoldBackgroundColor: Colors.transparent,
