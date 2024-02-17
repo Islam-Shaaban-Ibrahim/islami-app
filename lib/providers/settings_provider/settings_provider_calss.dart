@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 
 class SettingProvider with ChangeNotifier {
   String appLanguage = 'en';
-  ThemeMode appTheme = ThemeMode.dark;
+  ThemeMode appTheme = ThemeMode.light;
   void changeLanguage(String newLanguage) {
     if (appLanguage == newLanguage) return;
     appLanguage = newLanguage;
