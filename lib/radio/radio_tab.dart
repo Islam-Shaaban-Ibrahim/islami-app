@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:islami_app/app_theming.dart';
+import 'package:islami_app/providers/settings_provider/settings_provider_calss.dart';
+import 'package:provider/provider.dart';
 
 class RadioTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    SettingProvider settingProvider = Provider.of<SettingProvider>(context);
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -25,21 +28,27 @@ class RadioTab extends StatelessWidget {
                 onPressed: () {},
                 icon: Icon(
                   Icons.skip_previous,
-                  color: Theme.of(context).primaryColor,
+                  color: settingProvider.isDark()
+                      ? MyAppTheme.yellowColor
+                      : MyAppTheme.primaryLightColor,
                   size: 50,
                 )),
             IconButton(
                 onPressed: () {},
                 icon: Icon(
                   Icons.play_arrow,
-                  color: Theme.of(context).primaryColor,
+                  color: settingProvider.isDark()
+                      ? MyAppTheme.yellowColor
+                      : MyAppTheme.primaryLightColor,
                   size: 50,
                 )),
             IconButton(
                 onPressed: () {},
                 icon: Icon(
                   Icons.skip_next,
-                  color: Theme.of(context).primaryColor,
+                  color: settingProvider.isDark()
+                      ? MyAppTheme.yellowColor
+                      : MyAppTheme.primaryLightColor,
                   size: 50,
                 )),
           ],
