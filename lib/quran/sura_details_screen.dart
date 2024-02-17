@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:islami_app/app_theming.dart';
-import 'package:islami_app/circular_progress_indicator.dart';
+import 'package:islami_app/loading_indicator.dart';
+import 'package:islami_app/providers/settings_provider/settings_provider_calss.dart';
 import 'package:islami_app/quran/item_sura_name.dart';
+import 'package:provider/provider.dart';
 
 class SuraDetailsScreen extends StatefulWidget {
   static const String routeName = 'suraDetailsScreen';
@@ -13,10 +15,12 @@ class SuraDetailsScreen extends StatefulWidget {
 
 class _SuraDetailsScreenState extends State<SuraDetailsScreen> {
   List<Color> colors = [Colors.white, Colors.grey];
+  List<Color> colors_dark = [const Color(0xff0F1424), const Color(0xff0F1424)];
   List<String> verses = [];
 
   @override
   Widget build(BuildContext context) {
+    SettingProvider settingProvider = Provider.of<SettingProvider>(context);
     var args = ModalRoute.of(context)?.settings.arguments as SuraDetailsArgs;
     if (verses.isEmpty) {
       loadFile(args.index);
@@ -24,7 +28,9 @@ class _SuraDetailsScreenState extends State<SuraDetailsScreen> {
     return Stack(
       children: [
         Image.asset(
-          "assets/images/main_background.png",
+          settingProvider.isDark()
+              ? "assets/images/background_dark.png"
+              : "assets/images/main_background.png",
           width: double.infinity,
           height: double.infinity,
           fit: BoxFit.fill,
@@ -44,7 +50,7 @@ class _SuraDetailsScreenState extends State<SuraDetailsScreen> {
             ),
             decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: colors,
+                  colors: settingProvider.isDark() ? colors_dark : colors,
                 ),
                 borderRadius: BorderRadius.circular(25),
                 color: MyAppTheme.white),
@@ -57,7 +63,11 @@ class _SuraDetailsScreenState extends State<SuraDetailsScreen> {
                     itemCount: verses.length,
                     itemBuilder: (context, index) => Text(
                       "${verses[index]}(${index + 1})",
-                      style: Theme.of(context).textTheme.bodyMedium,
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            color: settingProvider.isDark()
+                                ? MyAppTheme.yellowColor
+                                : MyAppTheme.blackColor,
+                          ),
                       textAlign: TextAlign.center,
                       textDirection: TextDirection.rtl,
                     ),

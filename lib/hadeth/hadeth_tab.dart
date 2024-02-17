@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:islami_app/circular_progress_indicator.dart';
+import 'package:islami_app/app_theming.dart';
+import 'package:islami_app/loading_indicator.dart';
 import 'package:islami_app/hadeth/hadeth_details.dart';
 import 'package:islami_app/hadeth/item_hadeth.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:islami_app/providers/settings_provider/settings_provider_calss.dart';
+import 'package:provider/provider.dart';
 
 class HadethTab extends StatefulWidget {
   @override
@@ -14,6 +18,7 @@ class _HadethTabState extends State<HadethTab> {
 
   @override
   Widget build(BuildContext context) {
+    SettingProvider settingProvider = Provider.of<SettingProvider>(context);
     if (ahadeth.isEmpty) {
       loadHadethFile();
     }
@@ -21,17 +26,24 @@ class _HadethTabState extends State<HadethTab> {
       Image.asset("assets/images/hadeth_image.png"),
       Container(
         width: double.infinity,
-        padding: EdgeInsets.symmetric(vertical: 5),
-        margin: EdgeInsets.only(top: 10),
-        height: 40,
+        margin: EdgeInsets.only(top: 20, bottom: 5),
+        height: MediaQuery.of(context).size.height * 0.05,
         decoration: BoxDecoration(
             border: Border(
-          top: BorderSide(color: Theme.of(context).primaryColor, width: 2.5),
-          bottom: BorderSide(color: Theme.of(context).primaryColor, width: 2.5),
+          top: BorderSide(
+              color: settingProvider.isDark()
+                  ? MyAppTheme.yellowColor
+                  : MyAppTheme.primaryLightColor,
+              width: 2.5),
+          bottom: BorderSide(
+              color: settingProvider.isDark()
+                  ? MyAppTheme.yellowColor
+                  : MyAppTheme.primaryLightColor,
+              width: 2.5),
         )),
         child: Text(
           textAlign: TextAlign.center,
-          "Hadeth",
+          AppLocalizations.of(context)!.hadethName,
           style: Theme.of(context).textTheme.titleMedium,
         ),
       ),
@@ -46,7 +58,8 @@ class _HadethTabState extends State<HadethTab> {
                       arguments: ahadeth[index],
                     );
                   },
-                  child: ItemHadeth(item: ahadeth[index].title, index: index),
+                  child: ItemHadeth(
+                      item: "الحديث رقم  [${index + 1}]", index: index),
                 ),
                 itemCount: ahadeth.length,
               ),

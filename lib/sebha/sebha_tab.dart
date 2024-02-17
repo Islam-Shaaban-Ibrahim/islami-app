@@ -2,19 +2,25 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:islami_app/app_theming.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/settings_provider/settings_provider_calss.dart';
 
 class SebhaTab extends StatefulWidget {
   @override
   State<SebhaTab> createState() => _SebhaTabState();
 }
 
-double turn = 0.0;
-int sebhaCounter = 0;
-String tasbeh = 'سبحان الله';
-
 class _SebhaTabState extends State<SebhaTab> {
+  double turn = 0.0;
+  int sebhaCounter = 0;
+
+  List<String> tasbeeh = ['سبحان الله', 'الحمد لله', 'الله أكبر'];
+  int index = 0;
   @override
   Widget build(BuildContext context) {
+    SettingProvider settingProvider = Provider.of<SettingProvider>(context);
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -23,24 +29,28 @@ class _SebhaTabState extends State<SebhaTab> {
           children: [
             GestureDetector(
               onTap: () {
-                counterAndTasbeeh();
+                countingTasbeeh();
               },
               child: Transform.rotate(
                 angle: turn,
                 child: Image.asset(
-                  "assets/images/sebha_image.png",
+                  settingProvider.isDark()
+                      ? "assets/images/sebha_dark.png"
+                      : "assets/images/sebha_image.png",
                 ),
               ),
             ),
             Image.asset(
-              "assets/images/sebha_head.png",
-            ),
+              settingProvider.isDark()
+                  ? "assets/images/sebha_headDark.png"
+                  : "assets/images/sebha_head.png",
+            )
           ],
         ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 25),
           child: Text(
-            "عدد التسبيحات",
+            AppLocalizations.of(context)!.tasabeeh,
             style: Theme.of(context).textTheme.titleSmall?.copyWith(
                   fontWeight: FontWeight.w500,
                   fontSize: 25,
@@ -60,7 +70,9 @@ class _SebhaTabState extends State<SebhaTab> {
             width: 60,
             height: 80,
             decoration: BoxDecoration(
-                color: MyAppTheme.sebhaCounterColor,
+                color: settingProvider.isDark()
+                    ? MyAppTheme.primaryDarkColor
+                    : MyAppTheme.sebhaCounterColor,
                 borderRadius: BorderRadius.circular(20)),
           ),
         ),
@@ -68,33 +80,35 @@ class _SebhaTabState extends State<SebhaTab> {
           margin: EdgeInsets.only(top: 20),
           alignment: Alignment.center,
           child: Text(
-            tasbeh,
-            style: TextStyle(color: MyAppTheme.white),
+            tasbeeh[index],
+            style: TextStyle(
+                color: settingProvider.isDark()
+                    ? MyAppTheme.blackColor
+                    : MyAppTheme.white),
           ),
           width: MediaQuery.of(context).size.width * 0.35,
           height: 50,
           decoration: BoxDecoration(
-              color: Theme.of(context).primaryColor,
+              color: settingProvider.isDark()
+                  ? MyAppTheme.yellowColor
+                  : MyAppTheme.primaryLightColor,
               borderRadius: BorderRadius.circular(30)),
         ),
       ],
     );
   }
 
-  counterAndTasbeeh() {
+  void countingTasbeeh() {
     if (sebhaCounter == 99) {
       sebhaCounter = -1;
-      tasbeh = 'سبحان الله';
+      index = 0;
+      turn = 0;
     }
-    turn += 1;
-    if (sebhaCounter >= 0 && sebhaCounter < 33) {
-      tasbeh = 'سبحان الله';
-    } else if (sebhaCounter >= 33 && sebhaCounter < 66) {
-      tasbeh = "الحمد لله";
-    } else if (sebhaCounter >= 66 && sebhaCounter < 99) {
-      tasbeh = "الله أكبر";
+    if (sebhaCounter % 33 == 0 && sebhaCounter != 0) {
+      index++;
     }
     sebhaCounter++;
+    turn += 1;
     setState(() {});
   }
 }

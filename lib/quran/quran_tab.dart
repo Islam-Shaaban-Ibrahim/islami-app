@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:islami_app/app_theming.dart';
+import 'package:islami_app/providers/settings_provider/settings_provider_calss.dart';
 import 'package:islami_app/quran/item_sura_name.dart';
 import 'package:islami_app/quran/sura_details_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 
 class QuranTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    SettingProvider settingProvider = Provider.of<SettingProvider>(context);
     List<String> names = [
       "الفاتحه",
       "البقرة",
@@ -245,27 +250,36 @@ class QuranTab extends StatelessWidget {
           height: 40,
           decoration: BoxDecoration(
               border: Border(
-            top: BorderSide(color: Theme.of(context).primaryColor, width: 2.5),
-            bottom:
-                BorderSide(color: Theme.of(context).primaryColor, width: 2.5),
+            top: BorderSide(
+                color: settingProvider.isDark()
+                    ? MyAppTheme.yellowColor
+                    : MyAppTheme.primaryLightColor,
+                width: 2.5),
+            bottom: BorderSide(
+                color: settingProvider.isDark()
+                    ? MyAppTheme.yellowColor
+                    : MyAppTheme.primaryLightColor,
+                width: 2.5),
           )),
           child: Row(
             children: [
               Expanded(
                 child: Text(
                   textAlign: TextAlign.center,
-                  "Ayat",
+                  AppLocalizations.of(context)!.ayat,
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
               ),
               VerticalDivider(
-                color: Theme.of(context).primaryColor,
+                color: settingProvider.isDark()
+                    ? MyAppTheme.yellowColor
+                    : MyAppTheme.primaryLightColor,
                 thickness: 2.5,
               ),
               Expanded(
                 child: Text(
                   textAlign: TextAlign.center,
-                  "Sura Name",
+                  AppLocalizations.of(context)!.suraName,
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
               ),
@@ -282,7 +296,9 @@ class QuranTab extends StatelessWidget {
                       child: ItemSura(
                           item: "${versesNumber[index]}", index: index)),
                   VerticalDivider(
-                    color: Theme.of(context).primaryColor,
+                    color: settingProvider.isDark()
+                        ? MyAppTheme.yellowColor
+                        : MyAppTheme.primaryLightColor,
                     thickness: 2.5,
                   ),
                   Expanded(
