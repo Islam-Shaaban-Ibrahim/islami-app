@@ -20,6 +20,7 @@ class IslamiApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SettingProvider settingProvider = Provider.of<SettingProvider>(context);
+
     return MaterialApp(
       theme: MyAppTheme.lightMode,
       darkTheme: MyAppTheme.darkMode,

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class MyAppTheme {
   static Color primaryLightColor = Color(0xffB7935F);
   static Color primaryDarkColor = Color(0xff0F1424);
-  static Color blackColor = Color(0xff242424);
+  static Color blackColor = Colors.black;
   static Color yellowColor = Color(0xffFACC1D);
   static Color white = Color(0xFFF8F8F8);
   static Color sebhaCounterColor = Color(0xffC8B396);

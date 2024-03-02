@@ -15,13 +15,15 @@ class _ThemeBottomSheetState extends State<ThemeBottomSheet> {
     SettingProvider settingProvider = Provider.of<SettingProvider>(context);
     return Container(
       margin: EdgeInsets.all(20),
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10), color: Colors.transparent),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           InkWell(
             onTap: () {
               settingProvider.changeTheme(ThemeMode.dark);
+              Navigator.pop(context);
             },
             child: settingProvider.appTheme == ThemeMode.dark
                 ? selectedLangWidget(AppLocalizations.of(context)!.dark)
@@ -30,6 +32,7 @@ class _ThemeBottomSheetState extends State<ThemeBottomSheet> {
           InkWell(
             onTap: () {
               settingProvider.changeTheme(ThemeMode.light);
+              Navigator.pop(context);
             },
             child: settingProvider.appTheme == ThemeMode.light
                 ? selectedLangWidget(AppLocalizations.of(context)!.light)
@@ -64,7 +67,7 @@ class _ThemeBottomSheetState extends State<ThemeBottomSheet> {
       text,
       style: Theme.of(context).textTheme.titleMedium!.copyWith(
             color: Provider.of<SettingProvider>(context).isDark()
-                ? MyAppTheme.blackColor
+                ? MyAppTheme.yellowColor
                 : MyAppTheme.blackColor,
             fontWeight: FontWeight.bold,
           ),

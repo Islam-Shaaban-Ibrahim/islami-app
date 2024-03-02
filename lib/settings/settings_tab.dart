@@ -107,6 +107,11 @@ class _SettingsTabState extends State<SettingsTab> {
 
   void showLanguageBottomSheet() {
     showModalBottomSheet(
+      backgroundColor:
+          Provider.of<SettingProvider>(context, listen: false).appTheme ==
+                  ThemeMode.light
+              ? MyAppTheme.white
+              : Color.fromARGB(255, 100, 94, 94),
       context: context,
       builder: (context) => LanguageBottomSheet(),
     );
@@ -115,6 +120,11 @@ class _SettingsTabState extends State<SettingsTab> {
   void showThemeBottomSheet() {
     showModalBottomSheet(
       context: context,
+      backgroundColor:
+          Provider.of<SettingProvider>(context, listen: false).appTheme ==
+                  ThemeMode.light
+              ? MyAppTheme.white
+              : Color.fromARGB(255, 100, 94, 94),
       builder: (context) => ThemeBottomSheet(),
     );
   }

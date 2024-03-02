@@ -15,13 +15,15 @@ class _LanguageBottomSheetState extends State<LanguageBottomSheet> {
     SettingProvider settingProvider = Provider.of<SettingProvider>(context);
     return Container(
       margin: EdgeInsets.all(20),
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10), color: Colors.transparent),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           InkWell(
             onTap: () {
               settingProvider.changeLanguage("en");
+              Navigator.pop(context);
             },
             child: settingProvider.appLanguage == 'en'
                 ? selectedLangWidget(AppLocalizations.of(context)!.english)
@@ -30,6 +32,7 @@ class _LanguageBottomSheetState extends State<LanguageBottomSheet> {
           InkWell(
             onTap: () {
               settingProvider.changeLanguage("ar");
+              Navigator.pop(context);
             },
             child: settingProvider.appLanguage == 'ar'
                 ? selectedLangWidget(AppLocalizations.of(context)!.arabic)
@@ -65,7 +68,7 @@ class _LanguageBottomSheetState extends State<LanguageBottomSheet> {
       style: Theme.of(context).textTheme.titleMedium!.copyWith(
             fontWeight: FontWeight.bold,
             color: Provider.of<SettingProvider>(context).isDark()
-                ? MyAppTheme.blackColor
+                ? MyAppTheme.yellowColor
                 : MyAppTheme.blackColor,
           ),
     );
