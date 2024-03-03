@@ -18,9 +18,14 @@ void main() {
 
 class IslamiApp extends StatelessWidget {
   @override
+  bool firstRun = true;
   Widget build(BuildContext context) {
     SettingProvider settingProvider = Provider.of<SettingProvider>(context);
 
+    if (firstRun) {
+      settingProvider.getAllPrefs();
+      firstRun = false;
+    }
     return MaterialApp(
       theme: MyAppTheme.lightMode,
       darkTheme: MyAppTheme.darkMode,

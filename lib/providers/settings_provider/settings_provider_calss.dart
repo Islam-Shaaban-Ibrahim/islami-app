@@ -11,6 +11,7 @@ class SettingProvider with ChangeNotifier {
     if (appLanguage == newLanguage) return;
     appLanguage = newLanguage;
     pref.setString("lang", newLanguage);
+
     notifyListeners();
   }
 
@@ -24,6 +25,7 @@ class SettingProvider with ChangeNotifier {
     if (appTheme == newTheme) return;
     appTheme = newTheme;
     pref.setBool('theme', newTheme == ThemeMode.dark ? true : false);
+
     notifyListeners();
   }
 
