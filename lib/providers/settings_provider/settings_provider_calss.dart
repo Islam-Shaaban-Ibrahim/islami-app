@@ -31,12 +31,17 @@ class SettingProvider with ChangeNotifier {
 
   void getAllPrefs() async {
     var pref = await SharedPreferences.getInstance();
-    appLanguage = pref.getString('lang')!;
-    if (pref.getBool('theme')!) {
-      appTheme = ThemeMode.dark;
-    } else {
-      appTheme = ThemeMode.light;
+    if (pref.getString("lang") != null) {
+      appLanguage = pref.getString('lang')!;
     }
+    if (pref.getBool("theme") != null) {
+      if (pref.getBool('theme')!) {
+        appTheme = ThemeMode.dark;
+      } else {
+        appTheme = ThemeMode.light;
+      }
+    }
+
     notifyListeners();
   }
 }
